@@ -16,7 +16,7 @@ export default async function Home() {
           <div className="flex gap-8 text-sm font-medium">
             <a href="#deals" className="hover:text-emerald-600">Deals</a>
             <a href="#shop" className="hover:text-emerald-600">Shop</a>
-            <a href="#order" className="hover:text-emerald-600">Order</a>
+            <a href="/order" className="hover:text-emerald-600 font-semibold">Place Order</a>
           </div>
         </div>
       </nav>
@@ -26,7 +26,7 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h2 className="text-5xl md:text-6xl font-bold mb-6">Natural Healing,<br />Delivered Fast</h2>
           <p className="text-xl text-emerald-100 mb-8 max-w-md mx-auto">Mirpur Khas • Special deals • Same day order</p>
-          <a href="#deals" className="inline-block bg-white text-emerald-700 px-10 py-4 rounded-3xl text-lg font-semibold">See Today’s Deals</a>
+          <a href="/order" className="inline-block bg-white text-emerald-700 px-10 py-4 rounded-3xl text-lg font-semibold">Place Your Order Now</a>
         </div>
       </header>
 
@@ -42,7 +42,15 @@ export default async function Home() {
               <div className="p-6">
                 <h3 className="font-bold text-2xl">{deal.title}</h3>
                 <p className="text-emerald-600 text-3xl font-bold mt-2">Rs. {deal.price}</p>
-                <button className="mt-6 w-full bg-emerald-600 text-white py-4 rounded-3xl font-semibold">Add to Order</button>
+                <button 
+                  onClick={() => {
+                    // This will be improved later with client component
+                    alert(`Added ${deal.title} to cart! Go to /order to complete.`);
+                  }}
+                  className="mt-6 w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-3xl font-semibold transition"
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
           ))}
@@ -55,10 +63,16 @@ export default async function Home() {
           <h2 className="text-4xl font-bold text-center mb-12">Popular Remedies</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {products && products.map((p: any) => (
-              <div key={p.id} className="text-center">
-                <div className="text-7xl mb-4">{p.emoji || '🧪'}</div>
-                <h3 className="font-semibold">{p.name}</h3>
-                <p className="text-emerald-600 font-bold">Rs. {p.price}</p>
+              <div key={p.id} className="bg-white border border-gray-100 rounded-3xl p-6 text-center hover:shadow-xl transition">
+                <div className="text-7xl mb-6">{p.emoji || '🧪'}</div>
+                <h3 className="font-semibold text-xl mb-2">{p.name}</h3>
+                <p className="text-emerald-600 font-bold text-2xl mb-6">Rs. {p.price}</p>
+                <button 
+                  onClick={() => alert(`Added ${p.name} to cart! Go to /order`)}
+                  className="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-3xl font-medium transition"
+                >
+                  Add to Cart
+                </button>
               </div>
             ))}
           </div>
@@ -66,7 +80,7 @@ export default async function Home() {
       </section>
 
       <footer className="bg-gray-900 text-white py-12 text-center text-sm">
-        © Dr. Areeba Homeopathic Clinic • Mirpur Khas, Sindh
+        © Dr. Areeba Homeopathic Clinic • Mirpur Khas, Sindh • Fast Natural Healing
       </footer>
     </div>
   );
